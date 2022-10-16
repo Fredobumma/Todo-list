@@ -1,4 +1,5 @@
 import React from "react";
+import Task from "./common/task";
 
 const TodoList = () => {
   return (
@@ -35,32 +36,7 @@ const TodoList = () => {
           </div>
         </form>
       </header>
-      <ul>
-        <li className="flex flex-col items-end p-5 pl-7 shadow-md rounded-xl bg-slate-50 mx-3 sm:mx-0 mb-3">
-          <span className="inline-flex w-full">
-            <span className="fa-solid fa-square-check text-xl text-blue-500 mr-3 sm:mr-5"></span>
-            <span className="truncate ...">
-              This is the first task sdadsfdasfddsdfdfdffsdsfsdfd
-            </span>
-          </span>
-          <span className="text-xl sm:text-md">
-            <span class="fa-solid fa-pen-to-square text-blue-300"></span>
-            <span class="fa-solid fa-trash-can text-slate-500 ml-5"></span>
-          </span>
-        </li>
-      </ul>
-      <ul>
-        <li className="flex flex-col items-end p-5 pl-7 shadow-md rounded-xl bg-slate-50 mx-3 sm:mx-0 mb-3">
-          <span className="inline-flex w-full">
-            <span className="fa-solid fa-square-check text-xl text-blue-500 mr-3 sm:mr-5"></span>
-            <span className="truncate ...">This is the first task</span>
-          </span>
-          <span className="text-xl sm:text-md">
-            <span class="fa-solid fa-pen-to-square text-blue-300"></span>
-            <span class="fa-solid fa-trash-can text-slate-500 ml-5"></span>
-          </span>
-        </li>
-      </ul>
+      <Task />
       <ul className="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 text-sm leading-6 mt-5">
         <li className="flex">
           <a
