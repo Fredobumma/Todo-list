@@ -2,9 +2,9 @@ import React from "react";
 
 const AddTaskInput = () => {
   return (
-    <div className="flex items-center max-w-100 shadow-sm">
+    <div className="flex items-center max-w-100 max-h-100 shadow-sm box-border mb-2">
       <input
-        className="grow-2 focus:border-b-2 focus:border-blue-400 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 py-2 pl-5 mr-3"
+        className="grow-2 border-b-2 border-transparent focus:border-b-2 focus:border-blue-400 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 py-2 pl-5 mr-3"
         type="text"
         placeholder="Add new task..."
       />

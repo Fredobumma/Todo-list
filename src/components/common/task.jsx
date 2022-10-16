@@ -7,7 +7,7 @@ import TaskName from "./taskName";
 const Task = () => {
   return (
     <ul>
-      <li className="flex flex-col items-end p-5 pl-7 shadow-md rounded-xl bg-slate-50 mx-3 sm:mx-0 mb-3">
+      <li className="flex flex-col items-end p-5 pl-7 shadow-md rounded-xl bg-slate-50 mx-3 lg:mx-2 xl:mx-0 mb-3">
         <span className="inline-flex w-full">
           <CheckBox />
           <TaskName />
