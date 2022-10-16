@@ -2,7 +2,6 @@ import React from "react";
 import Heading from "./common/heading";
 import AddTaskInput from "./common/addTaskInput";
 import Task from "./common/task";
-import AddTaskButton from "./common/addTaskButton";
 
 const TodoList = () => {
   return (
@@ -14,7 +13,6 @@ const TodoList = () => {
         </form>
       </header>
       <Task />
-      <AddTaskButton />
     </section>
   );
 };

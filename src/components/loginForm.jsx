@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./common/button";
 import Copyright from "./common/copyright";
 import Input from "./common/input";
 
@@ -19,15 +20,12 @@ const LoginForm = () => {
               placeholder="Username"
               autoFocus="on"
             />
-            <Input
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto w-full"
-              id="login"
-              title={null}
-              type="submit"
-              value="Login"
-              onClick={() => {
-                navigate("/todo-list", { replace: false });
-                navigate(0);
+            <Button
+              title="Login"
+              extraClasses="w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/todo-list");
               }}
             />
           </form>
