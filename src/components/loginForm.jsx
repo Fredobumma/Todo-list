@@ -9,7 +9,7 @@ const LoginForm = ({ form, navigate }) => {
   const schema = {
     username: Joi.string().min(5).max(30).required().label("Username"),
   };
-  const doSubmit = () => navigate("/todo-list", { data });
+  const doSubmit = () => navigate("/todo-list", { state: { data } });
   const validate = new form(data, setData, errors, setErrors, schema, doSubmit);
 
   return (
