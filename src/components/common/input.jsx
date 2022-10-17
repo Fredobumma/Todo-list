@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ id, title, ...rest }) => {
+const Input = ({ id, title, error, ...rest }) => {
   return (
     <div className="mb-10">
       <label
@@ -14,6 +14,11 @@ const Input = ({ id, title, ...rest }) => {
         id={id}
         {...rest}
       />
+      {error && (
+        <div className="m-2 -mb-5 rounded-md p-2 px-3 bg-rose-300 text-red-900">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
