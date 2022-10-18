@@ -1,7 +1,7 @@
 import React from "react";
 
-const TaskName = () => {
-  return <span className="truncate ...">{}</span>;
+const TaskName = ({ text }) => {
+  return <span className="truncate ...">{text}</span>;
 };
 
 export default TaskName;

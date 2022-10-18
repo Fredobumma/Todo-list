@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = ({ id, title, error, ...rest }) => {
   return (
-    <div className="mb-10">
+    <div className="mb-8">
       <label
         className="block text-gray-700 text-sm font-bold mb-2"
         htmlFor={id}
