@@ -25,9 +25,9 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
   };
 
   this.renderButton = function renderButton(label) {
-    const extraClasses = validate()
-      ? "disabled:opacity-50 cursor-not-allowed"
-      : "hover:bg-blue-700";
+    const extraClasses =
+      (validate() && "disabled:opacity-50 cursor-not-allowed") ||
+      "hover:bg-blue-700";
 
     return (
       <button

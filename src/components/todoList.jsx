@@ -10,57 +10,58 @@ const TodoList = () => {
     state: { data },
   } = useLocation();
 
-  const [tasks, setTasks] = useState([
-    { label: "Tasks", content: [], text: "" },
-    { label: "Completed Tasks", content: [] },
-  ]);
-  const incomingTasks = tasks[0];
+  const [tasksObj, setTasksObj] = useState({
+    sections: [{ name: "Tasks" }, { name: "Completed Tasks" }],
+    tasks: [],
+    inputQuery: "",
+  });
+  const obj = { ...tasksObj };
 
   const handleChange = ({ target: { value } }) => {
-    const newTasks = [...tasks];
-    newTasks[0].text = value;
-    setTasks(newTasks);
+    obj.inputQuery = value;
+    setTasksObj(obj);
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    const newTasks = [...tasks];
-    if (newTasks[0].text) {
-      newTasks[0].content.unshift(incomingTasks.text);
-      newTasks[0].text = "";
+    if (obj.inputQuery) {
+      obj.tasks.unshift({
+        name: obj.inputQuery,
+        section: tasksObj.sections[0].name,
+      });
+      obj.inputQuery = "";
     } else toast("Please add a new task");
 
-    setTasks(newTasks);
+    setTasksObj(obj);
   };
 
   const handleKeyDown = (event) => {
-    const newTasks = [...tasks];
-    if (event.key === "Enter" && !newTasks[0].text) {
+    if (event.key === "Enter" && !obj.inputQuery) {
       toast("Please add a new task");
       event.preventDefault();
     }
 
-    if (event.key === "Enter" && newTasks[0].text) {
-      newTasks[0].content.unshift(incomingTasks.text);
-      newTasks[0].text = "";
+    if (event.key === "Enter" && obj.inputQuery) {
+      obj.tasks.unshift({
+        name: obj.inputQuery,
+        section: tasksObj.sections[0].name,
+      });
+      obj.inputQuery = "";
       event.preventDefault();
     }
 
-    setTasks(newTasks);
+    setTasksObj(obj);
   };
 
   const handleCheckBox = (task) => {
-    const newTasks = [...tasks];
-    const index = newTasks[0].content.indexOf(task);
-    newTasks[0].checkBox = !newTasks[0].checkBox;
-    if (newTasks[0].checkBox) {
-      newTasks[0].content.splice(index, 1);
-      newTasks[1].content.unshift(task);
-    } else {
-      newTasks[1].content.splice(index, 1);
-      newTasks[0].content.unshift(task);
-    }
-    setTasks(newTasks);
+    const obj = { ...tasksObj };
+    const index = obj.tasks.indexOf(task);
+    obj.tasks[index].checkBox = !obj.tasks[index].checkBox;
+    obj.tasks[index].section = obj.tasks[index].checkBox
+      ? tasksObj.sections[1].name
+      : tasksObj.sections[0].name;
+
+    setTasksObj(obj);
   };
 
   return (
@@ -68,23 +69,26 @@ const TodoList = () => {
       <header className="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-1 xl:py-6">
         <Heading
           username={data.username}
-          tasksCount={incomingTasks.content.length}
+          tasksCount={
+            tasksObj.tasks.filter(
+              (task) => task.section === tasksObj.sections[0].name
+            ).length
+          }
         />
         <form>
           <AddTaskInput
-            text={incomingTasks.text}
+            text={tasksObj.inputQuery}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             onClick={handleClick}
           />
         </form>
       </header>
-      {tasks.map((task) => (
+      {tasksObj.sections.map((section) => (
         <TaskSection
-          key={task.label}
-          label={task.label}
-          content={task.content}
-          checkbox={task.chec}
+          key={section.name}
+          section={section.name}
+          tasks={tasksObj.tasks.filter((task) => task.section === section.name)}
           onCheck={handleCheckBox}
         />
       ))}
