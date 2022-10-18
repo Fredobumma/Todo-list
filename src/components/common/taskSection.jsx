@@ -1,7 +1,7 @@
 import React from "react";
 import Task from "./task";
 
-const TaskSection = ({ label, content }) => {
+const TaskSection = ({ label, content, onCheck: onClick }) => {
   if (!content.length && label === "Completed Tasks") return null;
 
   return (
@@ -9,7 +9,7 @@ const TaskSection = ({ label, content }) => {
       <h2 className="text-lg sm:text-xl p-3 px-5 underline decoration-blue-500 decoration-4 underline-offset-8 mb-5">
         {label}
       </h2>
-      <Task content={content} />
+      <Task content={content} onClick={onClick} />
     </div>
   );
 };

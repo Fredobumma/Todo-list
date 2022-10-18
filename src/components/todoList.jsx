@@ -49,6 +49,20 @@ const TodoList = () => {
     setTasks(newTasks);
   };
 
+  const handleCheckBox = (task) => {
+    const newTasks = [...tasks];
+    const index = newTasks[0].content.indexOf(task);
+    newTasks[0].checkBox = !newTasks[0].checkBox;
+    if (newTasks[0].checkBox) {
+      newTasks[0].content.splice(index, 1);
+      newTasks[1].content.unshift(task);
+    } else {
+      newTasks[1].content.splice(index, 1);
+      newTasks[0].content.unshift(task);
+    }
+    setTasks(newTasks);
+  };
+
   return (
     <section className="min-h-screen bg-blue max-w-5xl mx-auto">
       <header className="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-1 xl:py-6">
@@ -70,6 +84,8 @@ const TodoList = () => {
           key={task.label}
           label={task.label}
           content={task.content}
+          checkbox={task.chec}
+          onCheck={handleCheckBox}
         />
       ))}
     </section>
