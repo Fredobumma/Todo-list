@@ -5,6 +5,9 @@ import Delete from "./delete";
 import TaskName from "./taskName";
 
 const Task = ({ content }) => {
+  if (!content.length)
+    return <p className="font-medium p-5 text-xs -mt-3">No tasks added yet</p>;
+
   return (
     <span>
       {content.map((text) => (

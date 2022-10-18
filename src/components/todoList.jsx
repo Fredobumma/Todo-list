@@ -24,12 +24,27 @@ const TodoList = () => {
 
   const handleClick = (event) => {
     event.preventDefault();
-
     const newTasks = [...tasks];
     if (newTasks[0].text) {
       newTasks[0].content.unshift(incomingTasks.text);
       newTasks[0].text = "";
-    } else toast("Please add new tasks");
+    } else toast("Please add a new task");
+
+    setTasks(newTasks);
+  };
+
+  const handleKeyDown = (event) => {
+    const newTasks = [...tasks];
+    if (event.key === "Enter" && !newTasks[0].text) {
+      toast("Please add a new task");
+      event.preventDefault();
+    }
+
+    if (event.key === "Enter" && newTasks[0].text) {
+      newTasks[0].content.unshift(incomingTasks.text);
+      newTasks[0].text = "";
+      event.preventDefault();
+    }
 
     setTasks(newTasks);
   };
@@ -45,6 +60,7 @@ const TodoList = () => {
           <AddTaskInput
             text={incomingTasks.text}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             onClick={handleClick}
           />
         </form>
