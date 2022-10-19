@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
+import PropTypes from "prop-types";
 import Copyright from "./common/copyright";
 import { getHooks } from "../utilities/getHooks";
 
@@ -33,6 +34,11 @@ const LoginForm = ({ form, navigate }) => {
       </div>
     </main>
   );
+};
+
+LoginForm.propTypes = {
+  form: PropTypes.func,
+  navigate: PropTypes.func,
 };
 
 export default getHooks(LoginForm);
