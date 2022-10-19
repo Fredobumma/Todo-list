@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
 import Copyright from "./common/copyright";
 import { getHooks } from "../utilities/getHooks";
 
-const LoginForm = ({ navigate }) => {
+const LoginForm = ({ form, navigate }) => {
   const [data, setData] = useState({ username: "" });
   const [errors, setErrors] = useState({});
   const schema = {
     username: Joi.string().min(5).max(30).required().label("Username"),
   };
   const doSubmit = () => navigate("/todo-list", { state: { data } });
-  const validate = new Form(data, setData, errors, setErrors, schema, doSubmit);
+  const validate = new form(data, setData, errors, setErrors, schema, doSubmit);
 
   return (
     <main className="flex items-center justify-center h-screen">

@@ -1,5 +1,5 @@
 import Joi from "joi-browser";
-import Input from "./input";
+import Input from "../components/common/input";
 
 function Form(data, setData, errors, setErrors, schema, doSubmit) {
   this.renderInput = function renderInput(

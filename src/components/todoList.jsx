@@ -6,16 +6,16 @@ import AddTaskInput from "./common/addTaskInput";
 import TaskSection from "./common/taskSection";
 
 const TodoList = () => {
-  const {
-    state: { data },
-  } = useLocation();
-
   const [tasksObj, setTasksObj] = useState({
     sections: [{ name: "Tasks" }, { name: "Completed Tasks" }],
     tasks: [],
     inputQuery: "",
   });
   const obj = { ...tasksObj };
+
+  const {
+    state: { data },
+  } = useLocation();
 
   const handleChange = ({ target: { value } }) => {
     obj.inputQuery = value;
