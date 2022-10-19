@@ -1,8 +1,12 @@
 import React from "react";
 import _ from "lodash";
 
-const TaskName = ({ taskName }) => {
-  return <span className="truncate ...">{_.capitalize(taskName)}</span>;
+const TaskName = ({ task: { checkBox, name } }) => {
+  return (
+    <span className={`${(checkBox && "line-through") || ""} truncate ...`}>
+      {_.capitalize(name)}
+    </span>
+  );
 };
 
 export default TaskName;

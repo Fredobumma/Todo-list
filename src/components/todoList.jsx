@@ -30,14 +30,14 @@ const TodoList = () => {
         section: tasksObj.sections[0].name,
       });
       obj.inputQuery = "";
-    } else toast("Please add a new task");
+    } else toast("Please add a new task.");
 
     setTasksObj(obj);
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !obj.inputQuery) {
-      toast("Please add a new task");
+      toast("Please add a new task.");
       event.preventDefault();
     }
 
@@ -71,6 +71,12 @@ const TodoList = () => {
     setTasksObj(obj);
   };
 
+  const handleDelete = (task) => {
+    const index = obj.tasks.indexOf(task);
+    obj.tasks.splice(index, 1);
+    setTasksObj(obj);
+  };
+
   return (
     <section className="min-h-screen bg-blue max-w-5xl mx-auto">
       <header className="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-1 xl:py-6">
@@ -98,6 +104,7 @@ const TodoList = () => {
           tasks={tasksObj.tasks.filter((task) => task.section === section.name)}
           onCheck={handleCheckBox}
           onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       ))}
     </section>
