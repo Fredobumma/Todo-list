@@ -1,12 +1,12 @@
 import React from "react";
 
-const CheckBox = ({ task, onClick }) => {
+const CheckBox = ({ task, onCheck }) => {
   return (
     <span
       className={`text-xl text-blue-500 mr-3 sm:mr-5 ${
         (task.checkBox && "fa-solid fa-square-check") || "fa-regular fa-square"
       }`}
-      onClick={() => onClick(task)}
+      onClick={() => onCheck(task)}
     ></span>
   );
 };

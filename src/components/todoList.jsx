@@ -54,12 +54,19 @@ const TodoList = () => {
   };
 
   const handleCheckBox = (task) => {
-    const obj = { ...tasksObj };
     const index = obj.tasks.indexOf(task);
     obj.tasks[index].checkBox = !obj.tasks[index].checkBox;
     obj.tasks[index].section = obj.tasks[index].checkBox
       ? tasksObj.sections[1].name
       : tasksObj.sections[0].name;
+
+    setTasksObj(obj);
+  };
+
+  const handleEdit = (task) => {
+    const index = obj.tasks.indexOf(task);
+    obj.inputQuery = obj.tasks[index].name;
+    obj.tasks.splice(index, 1);
 
     setTasksObj(obj);
   };
@@ -90,6 +97,7 @@ const TodoList = () => {
           section={section.name}
           tasks={tasksObj.tasks.filter((task) => task.section === section.name)}
           onCheck={handleCheckBox}
+          onEdit={handleEdit}
         />
       ))}
     </section>

@@ -4,7 +4,7 @@ import Edit from "./edit";
 import Delete from "./delete";
 import TaskName from "./taskName";
 
-const Task = ({ tasks, onClick }) => {
+const Task = ({ tasks, onCheck, onEdit }) => {
   if (!tasks.length)
     return <p className="font-medium p-5 text-xs -mt-3">No tasks added yet</p>;
 
@@ -14,11 +14,11 @@ const Task = ({ tasks, onClick }) => {
         <ul key={tasks.indexOf(task)}>
           <li className="flex flex-col items-end p-5 shadow-md rounded-xl bg-slate-50 mx-3 lg:mx-2 xl:mx-0 mb-3">
             <span className="inline-flex w-full">
-              <CheckBox onClick={onClick} task={task} />
+              <CheckBox task={task} onCheck={onCheck} />
               <TaskName taskName={task.name} />
             </span>
-            <span className="text-xl sm:text-md">
-              <Edit />
+            <span className="text-xl sm:text-md h-7">
+              <Edit task={task} onEdit={onEdit} />
               <Delete />
             </span>
           </li>
