@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import Heading from "./common/heading";
 import AddTaskInput from "./common/addTaskInput";
@@ -12,13 +12,6 @@ const TodoList = () => {
     inputQuery: "",
   });
   const obj = { ...tasksObj };
-  const tasksCount = tasksObj.tasks.filter(
-    (task) => task.section === tasksObj.sections[0].name
-  ).length;
-
-  const {
-    state: { data },
-  } = useLocation();
 
   const handleChange = ({ target: { value } }) => {
     obj.inputQuery = value;
@@ -80,10 +73,16 @@ const TodoList = () => {
     setTasksObj(obj);
   };
 
+  const { state } = useLocation();
+  const tasksCount = tasksObj.tasks.filter(
+    (task) => task.section === tasksObj.sections[0].name
+  ).length;
+
+  if (!state) return <Navigate to="/login" />;
   return (
     <section className="min-h-screen bg-blue max-w-5xl mx-1 lg:mx-auto">
       <header className="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-1 xl:py-6">
-        <Heading username={data.username} tasksCount={tasksCount} />
+        <Heading username={state.data.username} tasksCount={tasksCount} />
         <form>
           <AddTaskInput
             text={tasksObj.inputQuery}
