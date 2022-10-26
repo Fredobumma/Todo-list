@@ -7,13 +7,15 @@ import Copyright from "./common/copyright";
 import { getHooks } from "../utilities/getHooks";
 
 const LoginForm = ({ form, navigate }) => {
-  const [data, setData] = useState({ username: "" });
-  const [errors, setErrors] = useState({});
+  const [stateObj, setStateObj] = useState({
+    data: { username: "" },
+    errors: {},
+  });
   const schema = {
     username: Joi.string().min(5).max(30).required().label("Username"),
   };
-  const doSubmit = () => navigate("/todo-list", { state: { data } });
-  const validate = new form(data, setData, errors, setErrors, schema, doSubmit);
+  const doSubmit = () => navigate("/todo-list", { state: stateObj });
+  const validate = new form(stateObj, setStateObj, schema, doSubmit);
 
   return (
     <main className="flex items-center justify-center h-screen">

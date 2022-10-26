@@ -1,7 +1,7 @@
 import Joi from "joi-browser";
 import Input from "../components/common/input";
 
-function Form(data, setData, errors, setErrors, schema, doSubmit) {
+function Form(obj, setObj, schema, doSubmit) {
   this.renderInput = function renderInput(
     id,
     title,
@@ -15,7 +15,7 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
         id={id}
         title={title}
         type={type}
-        error={errors[id]}
+        error={obj.errors[id]}
         placeholder={placeholder}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
@@ -32,7 +32,7 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
     return (
       <button
         disabled={validate()}
-        className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto w-full ${extraClasses}`}
+        className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-1 focus:outline-blue-700 focus:shadow-outline mx-auto w-full ${extraClasses}`}
         type="submit"
       >
         {label}
@@ -43,9 +43,9 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
   this.handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    const errorsObj = validate() || {};
+    const errors = validate() || {};
 
-    setErrors(errorsObj);
+    setObj({ errors });
     if (Object.keys(errors).length) return;
 
     return doSubmit();
@@ -61,7 +61,7 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
 
   function validate() {
     const errorsObj = {};
-    const dataObj = { ...data };
+    const dataObj = { ...obj.data };
     const options = { abortEarly: false };
     const { error } = Joi.validate(dataObj, schema, options);
 
@@ -73,8 +73,8 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
   }
 
   function handleChange({ currentTarget: { id, value } }) {
-    const dataObj = { ...data };
-    const errorsObj = { ...errors };
+    const dataObj = { ...obj.data };
+    const errorsObj = { ...obj.errors };
     const errorMessage = validateProperty(id, value);
 
     dataObj[id] = value;
@@ -82,8 +82,7 @@ function Form(data, setData, errors, setErrors, schema, doSubmit) {
     if (errorMessage) errorsObj[id] = errorMessage;
     else delete errorsObj[id];
 
-    setData(dataObj);
-    setErrors(errorsObj);
+    setObj({ data: dataObj, errors: errorsObj });
   }
 }
 
