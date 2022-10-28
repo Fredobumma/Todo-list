@@ -21,6 +21,7 @@ TaskSection.propTypes = {
   onCheck: PropTypes.func,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
+  onDragEnd: PropTypes.func,
 };
 
 export default TaskSection;

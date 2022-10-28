@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
 import Heading from "./common/heading";
 import AddTaskInput from "./common/addTaskInput";
@@ -12,6 +13,7 @@ const TodoList = () => {
     inputQuery: "",
   });
   const obj = { ...tasksObj };
+  const unique_id = uuid().slice(0, 8);
 
   const handleChange = ({ target: { value } }) => {
     obj.inputQuery = value;
@@ -24,6 +26,7 @@ const TodoList = () => {
       obj.tasks.unshift({
         name: obj.inputQuery,
         section: tasksObj.sections[0].name,
+        id: unique_id,
       });
       obj.inputQuery = "";
     } else toast("Please add a new task.");
@@ -41,6 +44,7 @@ const TodoList = () => {
       obj.tasks.unshift({
         name: obj.inputQuery,
         section: tasksObj.sections[0].name,
+        id: unique_id,
       });
       obj.inputQuery = "";
       event.preventDefault();
@@ -73,6 +77,21 @@ const TodoList = () => {
     setTasksObj(obj);
   };
 
+  const handleDragEnd = ({ source, destination: end, draggableId }) => {
+    if (!end) return;
+
+    const currentTask = obj.tasks.find((t) => t.id === draggableId);
+    const endTask = obj.tasks
+      .filter((t) => t.section === currentTask.section)
+      .findIndex((t, index) => index === end.index);
+    const endTaskIndex = end.index > source.index ? endTask + 1 : endTask;
+
+    obj.tasks.splice(obj.tasks.indexOf(currentTask), 1);
+    obj.tasks.splice(endTaskIndex, 0, currentTask);
+
+    setTasksObj(obj);
+  };
+
   const { state } = useLocation();
   const tasksCount = tasksObj.tasks.filter(
     (task) => task.section === tasksObj.sections[0].name
@@ -92,14 +111,15 @@ const TodoList = () => {
           />
         </form>
       </header>
-      {tasksObj.sections.map((section) => (
+      {tasksObj.sections.map(({ name }) => (
         <TaskSection
-          key={section.name}
-          section={section.name}
-          tasks={tasksObj.tasks.filter((task) => task.section === section.name)}
+          key={name}
+          section={name}
+          tasks={tasksObj.tasks.filter((task) => task.section === name)}
           onCheck={handleCheckBox}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onDragEnd={handleDragEnd}
         />
       ))}
     </section>
