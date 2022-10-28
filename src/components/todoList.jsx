@@ -83,7 +83,7 @@ const TodoList = () => {
     const currentTask = obj.tasks.find((t) => t.id === draggableId);
     const endTask = obj.tasks
       .filter((t) => t.section === currentTask.section)
-      .findIndex((t, index) => index === end.index);
+      .findIndex((_t, index) => index === end.index);
     const endTaskIndex = end.index > source.index ? endTask + 1 : endTask;
 
     obj.tasks.splice(obj.tasks.indexOf(currentTask), 1);

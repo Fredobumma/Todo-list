@@ -1,5 +1,6 @@
 import React from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
+import StrictModeDroppable from "./strictModeDroppable";
 import CheckBox from "./checkBox";
 import Edit from "./edit";
 import Delete from "./delete";
@@ -11,7 +12,7 @@ const Task = ({ tasks, onDragEnd, onCheck, onEdit, onDelete }) => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="tasks">
+      <StrictModeDroppable droppableId="tasks">
         {(provided) => (
           <ul {...provided.droppableProps} ref={provided.innerRef}>
             {tasks.map((task, index) => {
@@ -40,7 +41,7 @@ const Task = ({ tasks, onDragEnd, onCheck, onEdit, onDelete }) => {
             {provided.placeholder}
           </ul>
         )}
-      </Droppable>
+      </StrictModeDroppable>
     </DragDropContext>
   );
 };
