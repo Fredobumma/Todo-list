@@ -11,7 +11,7 @@ const Task = ({ tasks, onDragEnd, onCheck, onEdit, onDelete }) => {
     return <p className="font-medium p-5 text-xs -mt-3">No tasks added yet</p>;
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={(e) => onDragEnd(e, tasks)}>
       <StrictModeDroppable droppableId="tasks">
         {(provided) => (
           <ul {...provided.droppableProps} ref={provided.innerRef}>
@@ -24,6 +24,7 @@ const Task = ({ tasks, onDragEnd, onCheck, onEdit, onDelete }) => {
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
                       className="flex flex-col items-end p-5 shadow-md rounded-xl bg-slate-50 mx-3 lg:mx-2 xl:mx-0 mb-3"
+                      title="Drag and drop to rearrange tasks."
                     >
                       <span className="inline-flex items-center w-full">
                         <CheckBox task={task} onCheck={onCheck} />
